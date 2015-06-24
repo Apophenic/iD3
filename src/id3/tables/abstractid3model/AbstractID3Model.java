@@ -2,12 +2,11 @@ package id3.tables.abstractid3model;
 
 import id3.tables.TableEntry;
 
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-import javax.swing.table.AbstractTableModel;
-
 /** Abstract table model used to back
- * {@link ID3Table}. This is simply a subclass
+ * {@link id3.tables.ID3Table}. This is simply a subclass
  * of {@link AbstractTableModel}.
  */
 public abstract class AbstractID3Model extends AbstractTableModel

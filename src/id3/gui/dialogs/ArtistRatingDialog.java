@@ -2,21 +2,11 @@ package id3.gui.dialogs;
 
 import id3.main.GUI;
 import id3.main.Settings;
+import id3.objects.Library;
+import org.jaudiotagger.tag.FieldKey;
 
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-import javax.swing.JSlider;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.JCheckBox;
+import javax.swing.*;
+import java.awt.*;
 
 /** Creates a dialog with options for how
  * Artist Rating should be handled if used.
@@ -33,7 +23,7 @@ import javax.swing.JCheckBox;
  * you'll have a 4+ percentage of 60. If you define your bracket to assign
  * a rating of 3 for percentages between 40 and 70, the artist in question will
  * receieve a rating of 3.
- * @see Functions#calculateArtistRating()
+ * @see id3.functions.Functions#calculateArtistRating(Library, FieldKey, boolean) calculateArtistRating()
  * @see Settings
  */
 public class ArtistRatingDialog extends JDialog
@@ -138,13 +128,7 @@ public class ArtistRatingDialog extends JDialog
 		slide3.setMaximum(100);
 		slide3.setMajorTickSpacing(10);
 		slide3.setBounds(228, 172, 230, 38);
-		slide3.addChangeListener(new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent e)
-			{
-				slide2.setMaximum(slide3.getValue() - 10);
-			}
-		});
+		slide3.addChangeListener(e -> slide2.setMaximum(slide3.getValue() - 10));
 		getContentPane().add(slide3);
 		
 		slide4 = new JSlider();
@@ -157,13 +141,7 @@ public class ArtistRatingDialog extends JDialog
 		slide4.setMaximum(100);
 		slide4.setMajorTickSpacing(10);
 		slide4.setBounds(228, 222, 230, 38);
-		slide4.addChangeListener(new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent e)
-			{
-				slide3.setMaximum(slide4.getValue() - 10);
-			}
-		});
+		slide4.addChangeListener(e -> slide3.setMaximum(slide4.getValue() - 10));
 		getContentPane().add(slide4);
 		
 		slide5 = new JSlider();
@@ -176,13 +154,7 @@ public class ArtistRatingDialog extends JDialog
 		slide5.setMaximum(100);
 		slide5.setMajorTickSpacing(10);
 		slide5.setBounds(228, 267, 230, 38);
-		slide5.addChangeListener(new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent e)
-			{
-				slide4.setMaximum(slide5.getValue() - 10);
-			}
-		});
+		slide5.addChangeListener(e -> slide4.setMaximum(slide5.getValue() - 10));
 		getContentPane().add(slide5);
 		
 		comboPercent = new JComboBox(PERCENTS);
@@ -196,44 +168,38 @@ public class ArtistRatingDialog extends JDialog
 		getContentPane().add(comboTotal);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener()
+		btnSave.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				if(!isHasErrors())
-				{
-					save();
-					ArtistRatingDialog.this.dispose();
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(GUI.frame, "Incorrect rating bracket settings!", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
+            if(!isHasErrors())
+            {
+                save();
+                ArtistRatingDialog.this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(GUI.frame, "Incorrect rating bracket settings!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 		btnSave.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnSave.setBounds(517, 408, 97, 23);
 		getContentPane().add(btnSave);
 		
 		chckUseCustom = new JCheckBox("Use Custom Rating Brackets");
-		chckUseCustom.addChangeListener(new ChangeListener()
+		chckUseCustom.addChangeListener(e ->
 		{
-			public void stateChanged(ChangeEvent e)
-			{
-				lblOneStar.setEnabled(chckUseCustom.isSelected());
-				lbl3Star.setEnabled(chckUseCustom.isSelected());
-				lbl4Star.setEnabled(chckUseCustom.isSelected());
-				lbl5Star.setEnabled(chckUseCustom.isSelected());
-				slide2.setEnabled(chckUseCustom.isSelected());
-				slide3.setEnabled(chckUseCustom.isSelected());
-				slide4.setEnabled(chckUseCustom.isSelected());
-				slide5.setEnabled(chckUseCustom.isSelected());
-				lblPercent.setEnabled(chckUseCustom.isSelected());
-				lblPercent2.setEnabled(chckUseCustom.isSelected());
-				lblPercent3.setEnabled(chckUseCustom.isSelected());
-				lblPercent4.setEnabled(chckUseCustom.isSelected());
-			}
-		});
+            lblOneStar.setEnabled(chckUseCustom.isSelected());
+            lbl3Star.setEnabled(chckUseCustom.isSelected());
+            lbl4Star.setEnabled(chckUseCustom.isSelected());
+            lbl5Star.setEnabled(chckUseCustom.isSelected());
+            slide2.setEnabled(chckUseCustom.isSelected());
+            slide3.setEnabled(chckUseCustom.isSelected());
+            slide4.setEnabled(chckUseCustom.isSelected());
+            slide5.setEnabled(chckUseCustom.isSelected());
+            lblPercent.setEnabled(chckUseCustom.isSelected());
+            lblPercent2.setEnabled(chckUseCustom.isSelected());
+            lblPercent3.setEnabled(chckUseCustom.isSelected());
+            lblPercent4.setEnabled(chckUseCustom.isSelected());
+        });
 		chckUseCustom.setFont(new Font("Verdana", Font.PLAIN, 12));
 		chckUseCustom.setBounds(20, 98, 268, 23);
 		getContentPane().add(chckUseCustom);

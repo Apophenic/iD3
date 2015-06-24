@@ -25,16 +25,16 @@
 
 package id3.main;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /** iD3 Application entry point.
  * <p>
  * Recommended reading:
- * <li>{@link FunctionPanel}
- * <li>{@link Library}
- * <li>{@link GUI}
+ * <li>{@link id3.gui.functionpanel.FunctionPanel}
+ * <li>{@link id3.objects.Library}
+ * <li>{@link id3.main.GUI}
  * <p>
  * See the ReadMe.txt for more information.
  */
@@ -56,20 +56,17 @@ public final class Program
 	
 	public static void init()
 	{
-		EventQueue.invokeLater(new Runnable()
+		EventQueue.invokeLater(() ->
 		{
-			public void run()
-			{
-				try
-				{
-					GUI window = new GUI();
-					window.frame.setVisible(true);
-				}
-				catch (Exception e)
-				{
-					LOG.log(Level.SEVERE, "Failed to initialize iD3");
-				}
-			}
-		});
+            try
+            {
+                GUI window = new GUI();
+                window.frame.setVisible(true);
+            }
+            catch (Exception e)
+            {
+                LOG.log(Level.SEVERE, "Failed to initialize iD3");
+            }
+        });
 	}
 }

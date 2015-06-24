@@ -2,20 +2,11 @@ package id3.gui.dialogs;
 
 import id3.main.GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.JDialog;
-import javax.swing.JProgressBar;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import java.awt.Font;
 import java.util.Set;
-
-import javax.swing.SwingConstants;
 
 /** Creates a dialog with a progress bar */
 public class ProgressDialog extends JDialog
@@ -49,21 +40,18 @@ public class ProgressDialog extends JDialog
 		getContentPane().add(progress);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener()
+		btnCancel.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				if(btnCancel.getText().equals("Cancel"))
-				{
-					cancel();
-					ProgressDialog.this.dispose();;
-				}
-				else
-				{
-					ProgressDialog.this.dispose();;
-				}
-			}
-		});
+            if(btnCancel.getText().equals("Cancel"))
+            {
+                cancel();
+                ProgressDialog.this.dispose();;
+            }
+            else
+            {
+                ProgressDialog.this.dispose();;
+            }
+        });
 		btnCancel.setBounds(65, 78, 90, 23);
 		getContentPane().add(btnCancel);
 		

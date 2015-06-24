@@ -1,38 +1,29 @@
 package id3.gui.functionpanel.panels;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import id3.functions.Functions;
 import id3.gui.customui.InfoTextArea;
 import id3.gui.functionpanel.FunctionPanel;
 import id3.utils.Utils;
-
-import javax.swing.JCheckBox;
-import javax.swing.text.PlainDocument;
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-
 import org.jaudiotagger.tag.FieldKey;
 
-import java.awt.Rectangle;
+import javax.swing.*;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
+import java.util.Map;
+import java.util.Map.Entry;
 
 
 public class FormattingPanel extends FunctionPanel
 {
 	public enum TextRemovalType
 	{
-		Leading, Trailing;
+		Leading, Trailing
 	}
 	
 	private static final String INFO_TEXT = "Operations performed on all tracks, all fields (except composer,\r\n"
 			+ "grouping, comments by default):\r\nCapitalize Fields: first letter of every word is capitalized\r\n"
-			+ "-Proper Caps: skips articles (a, of, the, etc.)\r\n\r\nRemove leading/trailing spaces: applies to all fields";
+			+ "-Proper Caps: skips articles (a, of, the, etc.)\r\n\r\nRemove leading/trailing spaces: applies to" +
+			" all fields";
 
 	private JCheckBox chckCapitalizeFields;
 	private JCheckBox chckProperCaps;
@@ -42,8 +33,7 @@ public class FormattingPanel extends FunctionPanel
 	
 	private JCheckBox chckRemoveSpaces;
 	private JCheckBox chckRemoveN;
-	
-	private ButtonGroup bg = new ButtonGroup();
+
 	private JRadioButton rdbtnLeading;
 	private JRadioButton rdbtnTrailing;
 	
@@ -56,12 +46,14 @@ public class FormattingPanel extends FunctionPanel
 	public FormattingPanel()
 	{
 		chckCapitalizeFields = new JCheckBox("Capitalize Fields");
-		chckCapitalizeFields.setToolTipText("Will capitalize the first letter of EVERY word for all string-type fields (excluding grouping, comments, and composer)");
+		chckCapitalizeFields.setToolTipText("Will capitalize the first letter of EVERY word for all string-type fields" +
+				" (excluding grouping, comments, and composer)");
 		chckCapitalizeFields.setBounds(6, 17, 175, 23);
 		this.add(chckCapitalizeFields);
 		
 		chckProperCaps = new JCheckBox("Use Proper Capitalization");
-		chckProperCaps.setToolTipText("Attempts to follow proper English capitalization by skipping words such as a, of, the, and, an, etc. unless they're the first word in a title");
+		chckProperCaps.setToolTipText("Attempts to follow proper English capitalization by skipping words such as" +
+				" a, of, the, and, an, etc. unless they're the first word in a title");
 		chckProperCaps.setEnabled(false);
 		chckProperCaps.setBounds(16, 43, 192, 23);
 		this.add(chckProperCaps);
@@ -82,7 +74,8 @@ public class FormattingPanel extends FunctionPanel
 		this.add(chckComments);
 		
 		chckRemoveSpaces = new JCheckBox("Remove leading/trailing spaces");
-		chckRemoveSpaces.setToolTipText("Removes all spaces that occur before and after text in a field. This works on all String-type fields.");
+		chckRemoveSpaces.setToolTipText("Removes all spaces that occur before and after text in a field." +
+				" This works on all String-type fields.");
 		chckRemoveSpaces.setBounds(6, 148, 230, 23);
 		this.add(chckRemoveSpaces);
 		
@@ -101,7 +94,8 @@ public class FormattingPanel extends FunctionPanel
 		rdbtnTrailing.setEnabled(false);
 		rdbtnTrailing.setBounds(118, 230, 90, 23);
 		this.add(rdbtnTrailing);
-		
+
+		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnLeading);
 		bg.add(rdbtnTrailing);
 		
@@ -133,29 +127,23 @@ public class FormattingPanel extends FunctionPanel
 		InfoTextArea infoTextArea = new InfoTextArea(INFO_TEXT, new Rectangle(280, 18, 175, 265));
 		this.add(infoTextArea);
 		
-		chckCapitalizeFields.addActionListener(new ActionListener()
+		chckCapitalizeFields.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				chckProperCaps.setEnabled(chckCapitalizeFields.isSelected());
-				chckComposer.setEnabled(chckCapitalizeFields.isSelected());
-				chckGrouping.setEnabled(chckCapitalizeFields.isSelected());
-				chckComments.setEnabled(chckCapitalizeFields.isSelected());
-			}
-		});
+            chckProperCaps.setEnabled(chckCapitalizeFields.isSelected());
+            chckComposer.setEnabled(chckCapitalizeFields.isSelected());
+            chckGrouping.setEnabled(chckCapitalizeFields.isSelected());
+            chckComments.setEnabled(chckCapitalizeFields.isSelected());
+        });
 		
-		chckRemoveN.addActionListener(new ActionListener()
+		chckRemoveN.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				lblField.setEnabled(chckRemoveN.isSelected());
-				lblChars.setEnabled(chckRemoveN.isSelected());
-				comboFields.setEnabled(chckRemoveN.isSelected());
-				txtChars.setEnabled(chckRemoveN.isSelected());
-				rdbtnTrailing.setEnabled(chckRemoveN.isSelected());
-				rdbtnLeading.setEnabled(chckRemoveN.isSelected());
-			}
-		});
+            lblField.setEnabled(chckRemoveN.isSelected());
+            lblChars.setEnabled(chckRemoveN.isSelected());
+            comboFields.setEnabled(chckRemoveN.isSelected());
+            txtChars.setEnabled(chckRemoveN.isSelected());
+            rdbtnTrailing.setEnabled(chckRemoveN.isSelected());
+            rdbtnLeading.setEnabled(chckRemoveN.isSelected());
+        });
 	}
 	
 	private boolean isCapitalizeFields()

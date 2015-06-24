@@ -1,13 +1,10 @@
 package id3.gui.customui;
 
-import java.awt.Font;
-import java.awt.Rectangle;
-
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
+import javax.swing.*;
+import java.awt.*;
 
 /** A generic {@code JTextArea} used by
- * {@link FunctionPanel} to briefly describe what
+ * {@link id3.gui.functionpanel.FunctionPanel} to briefly describe what
  * each function accomplishes.
  */
 public class InfoTextArea extends JTextArea
@@ -48,11 +45,6 @@ public class InfoTextArea extends JTextArea
 	{
 		this(infoText);
 		setBounds(bounds);
-	}
-	
-	public String getInfoText()
-	{
-		return this.getText();
 	}
 	
 	public void setInfoText(String infoText)

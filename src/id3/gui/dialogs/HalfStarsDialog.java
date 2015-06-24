@@ -5,16 +5,8 @@ import id3.gui.customui.InfoTextArea;
 import id3.main.Program;
 import id3.main.Settings;
 
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JButton;
-
-import java.awt.Rectangle;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -158,7 +150,7 @@ public class HalfStarsDialog extends JDialog
 					"\\AppData\\Roaming\\Apple Computer\\iTunes\\iTunesPrefs.xml";
 			
 			Scanner s = null;
-			String line = null;
+			String line;
 			try
 			{
 				s = new Scanner(new File(prefLocation));

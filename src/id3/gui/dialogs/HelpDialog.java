@@ -1,16 +1,11 @@
 package id3.gui.dialogs;
 
-import javax.swing.JDialog;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.JEditorPane;
+import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import java.awt.Font;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.tree.DefaultTreeModel;
+import java.awt.*;
 
 /** Opens a tree dialog containing
  * additional information about iD3 and
@@ -20,10 +15,6 @@ public class HelpDialog extends JDialog
 {
 	public static final String ID3_INFO 		= "Copies info from iTunes library file into song ID3 tags.\r\n"
 												+ "Supported file formats: mp3, mp4, m4a, m4p, ogg, flac, wma";
-	public static final String MAIN_INFO 		= "This encompases all selectable options in \"Tag Editing\"\'s sub-tabs.\r\n"
-												+ "Any checkbox that is selected will have its corresponding function\r\n"
-												+ "performed once the \"Begin Selected Functions\" button\r\n"
-												+ "is clicked";
 	public static final String FORMATTING_INFO 	= "CAPITALIZE FIELDS\r\n"
 												+ "Capitalizes every word in the following fields: name, artist,\r\n"
 												+ "album, genre, and album artist.\r\n"
@@ -272,6 +263,7 @@ public class HelpDialog extends JDialog
 		
 		tree.addTreeSelectionListener(new TreeSelectionListener()
 		{
+			@Override
 			public void valueChanged(TreeSelectionEvent e)
 			{
 				String path = e.getPath().toString();

@@ -8,25 +8,9 @@ import id3.gui.functionpanel.FunctionPanel;
 import id3.gui.functionpanel.panels.*;
 import id3.objects.Library;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
-import java.awt.Font;
+import java.awt.*;
 import java.io.File;
 import java.util.logging.Logger;
 
@@ -71,46 +55,38 @@ public class GUI
 		JButton btnBegin = new JButton("Begin Operation");
 		btnBegin.setToolTipText("See 'About->Help' for more information on the current operation");
 		btnBegin.setFont(new Font("Verdana", Font.BOLD, 11));
-		btnBegin.addActionListener(new ActionListener()
+		btnBegin.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)	// Main application logic.
-			{
-				String fileLibrary = getLibraryFile();
-				if(fileLibrary == null)
-				{
-					JOptionPane.showMessageDialog(GUI.frame, "Library file doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				else
-				{
-					if (selectedPanel instanceof FunctionPanel)
+            String fileLibrary = getLibraryFile();
+            if(fileLibrary == null)
+            {
+                JOptionPane.showMessageDialog(GUI.frame, "Library file doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                if (selectedPanel != null)
+                {
+                    Thread thread = new Thread(() ->
 					{
-						Thread thread = new Thread(new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								if(selectedPanel.isRequiresItunesLibraryFile())
-								{
-									if(isNewLibraryFile())
-									{
-										lib = new Library(fileLibrary);
-									}
-									
-									if(selectedPanel.isRequiresArtistAlbumObjects())
-									{
-										lib.createArtistObjects();
-									}
-								}
-								selectedPanel.initFunction(lib);
-							}
-						});
-						thread.setName("Function Process");
-						thread.start();
-					}
-				}
-			}
-		});
+                        if(selectedPanel.isRequiresItunesLibraryFile())
+                        {
+                            if(isNewLibraryFile())
+                            {
+                                lib = new Library(fileLibrary);
+                            }
+
+                            if(selectedPanel.isRequiresArtistAlbumObjects())
+                            {
+                                lib.createArtistObjects();
+                            }
+                        }
+                        selectedPanel.initFunction(lib);
+                    });
+                    thread.setName("Function Process");
+                    thread.start();
+                }
+            }
+        });
 		btnBegin.setBounds(250, 438, 140, 30);
 		frame.getContentPane().add(btnBegin);
 		
@@ -122,59 +98,29 @@ public class GUI
 		menuBar.add(menuFile);
 		
 		JMenuItem menuitemExit = new JMenuItem("Exit");
-		menuitemExit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				System.exit(0);
-			}
-		});
+		menuitemExit.addActionListener(e -> System.exit(0));
 		menuFile.add(menuitemExit);
 		
 		JMenu menuSettings = new JMenu("Settings");
 		menuBar.add(menuSettings);
 		
 		JMenuItem mnitmArtistRating = new JMenuItem("Edit Artist Rating Criteria");
-		mnitmArtistRating.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				new ArtistRatingDialog();
-			}
-		});
+		mnitmArtistRating.addActionListener(e -> new ArtistRatingDialog());
 		menuSettings.add(mnitmArtistRating);
 		
 		JMenuItem mnitmHalfStars = new JMenuItem("Enable Half-Stars");
-		mnitmHalfStars.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				new HalfStarsDialog();
-			}
-		});
+		mnitmHalfStars.addActionListener(e -> new HalfStarsDialog());
 		menuSettings.add(mnitmHalfStars);
 		
 		JMenu menuAbout = new JMenu("About");
 		menuBar.add(menuAbout);
 		
 		JMenuItem mnitmHelp = new JMenuItem("Help");
-		mnitmHelp.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				new HelpDialog();
-			}
-		});
+		mnitmHelp.addActionListener(e -> new HelpDialog());
 		menuAbout.add(mnitmHelp);
 		
 		JMenuItem mnitmAboutId3 = new JMenuItem("About iD3");
-		mnitmAboutId3.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				new LicenseDialog();
-			}
-		});
+		mnitmAboutId3.addActionListener(e -> new LicenseDialog());
 		menuAbout.add(mnitmAboutId3);
 		
 		txtFile = new JTextField();
@@ -183,20 +129,17 @@ public class GUI
 		txtFile.setColumns(10);
 		
 		btnBrowse = new JButton("Browse");
-		btnBrowse.addActionListener(new ActionListener()
+		btnBrowse.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
-				jfc.setFileFilter(new FileNameExtensionFilter("iTunes Music Library.xml", "xml"));
-				int val = jfc.showOpenDialog(frame);
-				
-				if(val == JFileChooser.APPROVE_OPTION)
-				{
-					txtFile.setText(jfc.getSelectedFile().getAbsolutePath());
-				}
-			}
-		});
+            JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
+            jfc.setFileFilter(new FileNameExtensionFilter("iTunes Music Library.xml", "xml"));
+            int val = jfc.showOpenDialog(frame);
+
+            if(val == JFileChooser.APPROVE_OPTION)
+            {
+                txtFile.setText(jfc.getSelectedFile().getAbsolutePath());
+            }
+        });
 		btnBrowse.setBounds(535, 26, 89, 23);
 		frame.getContentPane().add(btnBrowse);
 		
@@ -223,36 +166,33 @@ public class GUI
 		tabs.addTab("Missing Songs", new MissingSongsPanel());
 		tabs.addTab("Unlisted Files", new UnlistedSongsPanel());
 		
-		tabs.addChangeListener(new ChangeListener()
+		tabs.addChangeListener(e ->
 		{
-			public void stateChanged(ChangeEvent e)
-			{
-				Component selectedTab = tabs.getSelectedComponent();
-				if(selectedTab instanceof FunctionPanel)
-				{
-					selectedPanel = (FunctionPanel) selectedTab;
-					
-					if(!selectedPanel.isRequiresItunesLibraryFile())
-					{
-						setLibraryFileInputEnabled(false);
-					}
-					else 
-					{
-						setLibraryFileInputEnabled(true);
-					}
-					
-					if(selectedTab instanceof GetLyricsPanel) // TODO
-					{
-						btnBegin.setEnabled(false);
-					}
-					else
-					{
-						btnBegin.setEnabled(true);
-					}
-				}
-				
-			}
-		});
+            Component selectedTab = tabs.getSelectedComponent();
+            if(selectedTab instanceof FunctionPanel)
+            {
+                selectedPanel = (FunctionPanel) selectedTab;
+
+                if(!selectedPanel.isRequiresItunesLibraryFile())
+                {
+                    setLibraryFileInputEnabled(false);
+                }
+                else
+                {
+                    setLibraryFileInputEnabled(true);
+                }
+
+                if(selectedTab instanceof GetLyricsPanel) // TODO
+                {
+                    btnBegin.setEnabled(false);
+                }
+                else
+                {
+                    btnBegin.setEnabled(true);
+                }
+            }
+
+        });
 		
 		selectedPanel = (FunctionPanel) tabs.getSelectedComponent();
 		

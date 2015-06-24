@@ -11,11 +11,11 @@ public class Artist
 	/** Literal artist name*/
 	private String					name;
 	
-	/** Artist rating used by {@link Functions#calculateArtistRating} */
+	/** Artist rating used by {@link id3.functions.Functions#calculateArtistRating} */
 	private int rating = -1;
 	
 	/** All {@link Album}s that belong to this Artist */
-	private ArrayList<Album> albums 					= new ArrayList<Album>();
+	private ArrayList<Album> albums 					= new ArrayList<>();
 	
 	/** Creates a new Artist by using
 	 * the artist's literal name.

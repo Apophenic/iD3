@@ -8,17 +8,11 @@ import id3.tables.ID3Table;
 import id3.tables.TableEntry;
 import id3.tables.abstractid3model.AbstractID3Model;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
-import java.awt.Font;
 
 /** A subclass of {@link FunctionPanel} that
  * graphically defines an {@link ID3Table}
@@ -29,7 +23,7 @@ public abstract class TableFunctionPanel extends FunctionPanel
 	protected InfoTextArea infoTextPanel = new InfoTextArea();
 	
 	/** List that backs this table's model */
-	protected ArrayList<TableEntry> tableEntries = new ArrayList<TableEntry>();
+	protected ArrayList<TableEntry> tableEntries = new ArrayList<>();
 	
 	protected ID3Table table;
 	private JScrollPane scrollPane;
@@ -60,30 +54,21 @@ public abstract class TableFunctionPanel extends FunctionPanel
 	{
 		JButton btnCommit = new JButton("Commit Changes");
 		btnCommit.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnCommit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				initCommit();
-			}
-		});
+		btnCommit.addActionListener(e -> initCommit());
 		btnCommit.setBounds(197, 320, 163, 35);
 		add(btnCommit);
 		
 		JButton btnOpenTable = new JButton("Open Table");
 		btnOpenTable.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnOpenTable.addActionListener(new ActionListener()
+		btnOpenTable.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				TableDialog dialog = new TableDialog(table); //blocking
-				table = dialog.getTable();
-				
-				TableFunctionPanel.this.remove(scrollPane); // TODO ?
-				initScrollPane();
-				resizeColumns();
-			}
-		});
+            TableDialog dialog = new TableDialog(table); //blocking
+            table = dialog.getTable();
+
+            TableFunctionPanel.this.remove(scrollPane); // TODO ?
+            initScrollPane();
+            resizeColumns();
+        });
 		btnOpenTable.setBounds(10, 320, 115, 35);
 		add(btnOpenTable);
 		
@@ -96,16 +81,6 @@ public abstract class TableFunctionPanel extends FunctionPanel
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 11, 350, 292);
 		add(scrollPane);
-	}
-	
-	/** Changes the underlying table's model
-	 * and repaints.
-	 * @param model  {@link AbstractID3Model} to use
-	 */
-	public void setNewTableModel(AbstractID3Model model)
-	{
-		table.setModel(model);
-		resizeColumns();
 	}
 	
 	public void setPanelInfoText(String infoText)
@@ -135,28 +110,25 @@ public abstract class TableFunctionPanel extends FunctionPanel
 	public void initCommit()
 	{ 	
 		ArrayList<TableEntry> entries = table.getModel().getTableEntries();
-		if(entries.isEmpty() || entries == null)
+		if(entries.isEmpty())
 		{
 			JOptionPane.showMessageDialog(new JFrame(), "Table is empty", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
-		Thread thread = new Thread(new Runnable()
+		Thread thread = new Thread(() ->
 		{
-			public void run()
-			{
-				ProgressDialog progress = new ProgressDialog();
-				LOG.log(Level.FINE, "Commiting changes");
-				
-				for(TableEntry entry : entries)
-				{
-					runCommit(entry);
-				}
-				table.getModel().getTableEntries().clear();
-				table.getModel().fireTableRowsDeleted(0, entries.size());
-				progress.finish();
-			}
-		});
+            ProgressDialog progress = new ProgressDialog();
+            LOG.log(Level.FINE, "Commiting changes");
+
+            for(TableEntry entry : entries)
+            {
+                runCommit(entry);
+            }
+            table.getModel().getTableEntries().clear();
+            table.getModel().fireTableRowsDeleted(0, entries.size());
+            progress.finish();
+        });
 		thread.setName("Commmit Process");
 		thread.start();
 	}
@@ -165,7 +137,7 @@ public abstract class TableFunctionPanel extends FunctionPanel
 	 * {@link TableEntry} in an {@link ID3Table}.
 	 * <p>
 	 * The design is similar to
-	 * {@link FunctionPanel#runFunction(Entry)},
+	 * {@link FunctionPanel#runFunction(Map.Entry)},
 	 * but will always need to be overriden.
 	 * @param entry
 	 */

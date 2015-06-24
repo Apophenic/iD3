@@ -5,7 +5,7 @@ import id3.tables.abstractid3model.AbstractID3Model;
 
 import java.util.ArrayList;
 
-/** Used to back {@link ArtistInNamePanel}'s table.
+/** Used to back {@link id3.gui.functionpanel.panels.ArtistInNamePanel}'s table.
  * @see AbstractID3Model
  */
 public class ArtistInNameModel extends AbstractID3Model
@@ -19,7 +19,7 @@ public class ArtistInNameModel extends AbstractID3Model
 		
 		private final int value;
 		
-		private NameColumns(final int value)
+		NameColumns(final int value)
 		{
 			this.value = value;
 		}
@@ -45,7 +45,7 @@ public class ArtistInNameModel extends AbstractID3Model
 	/** Creates an empty model */
 	public ArtistInNameModel()
 	{ 
-		this(new ArrayList<TableEntry>());
+		this(new ArrayList<>());
 	}
 
 	public ArtistInNameModel(ArrayList<TableEntry> entries)

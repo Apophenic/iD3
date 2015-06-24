@@ -1,18 +1,16 @@
 package id3.gui.functionpanel;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import id3.gui.dialogs.ProgressDialog;
 import id3.main.GUI;
 import id3.main.Program;
 import id3.objects.Library;
 import id3.utils.Utils;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /** Superclass to all panels used in iD3.
  * Stores relevant panel state to be used in 
@@ -22,7 +20,7 @@ import javax.swing.JPanel;
  * The idea is that beginning an operation from the GUI
  * will be forced to call {@link #initFunction(Library)},
  * which lays down some basic run logic to be passed into
- * the corresponding method in {@link Functions}.
+ * the corresponding method in {@link id3.functions.Functions}.
  * In most cases, the corresponding method will be pointed
  * to in {@link #runFunction(Entry)}.
  * <p>
@@ -34,8 +32,8 @@ import javax.swing.JPanel;
  * logic.
  * <p>
  * In a nutshell: maintains panel state and contains
- * a pointer to the corresponding method in {@link Functions}
- * @see Functions
+ * a pointer to the corresponding method in {@link id3.functions.Functions}
+ * @see id3.functions.Functions
  * @see Library
  */
 public abstract class FunctionPanel extends JPanel
@@ -106,7 +104,7 @@ public abstract class FunctionPanel extends JPanel
 	
 	/** Panel specific, makes sure the panel state
 	 * will pass valid values to the panel's
-	 * function method in {@link Functions}.
+	 * function method in {@link id3.functions.Functions}.
 	 * @return  true if errors, false if no errors
 	 */
 	public abstract boolean checkForErrors();

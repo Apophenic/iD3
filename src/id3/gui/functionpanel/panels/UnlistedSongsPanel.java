@@ -1,13 +1,5 @@
 package id3.gui.functionpanel.panels;
 
-import java.awt.Font;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.JCheckBox;
-
 import id3.functions.Functions;
 import id3.gui.functionpanel.TableFunctionPanel;
 import id3.main.Settings;
@@ -15,6 +7,14 @@ import id3.objects.Library;
 import id3.tables.ID3Table;
 import id3.tables.TableEntry;
 import id3.tables.abstractid3model.models.FileOpModel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 
 public class UnlistedSongsPanel extends TableFunctionPanel
 {
@@ -25,7 +25,7 @@ public class UnlistedSongsPanel extends TableFunctionPanel
 	
 	/** Creates a new {@code UnlistedSongsPanel}
 	 * @see TableFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public UnlistedSongsPanel()
 	{
@@ -57,7 +57,7 @@ public class UnlistedSongsPanel extends TableFunctionPanel
 	protected void runCommit(TableEntry entry)
 	{
 		File file = new File(entry.FilePath);
-		if(entry.Status == "Find + Move")
+		if(Objects.equals(entry.Status, "Find + Move"))
 		{
 			file.renameTo(new File(Settings.UNLISTED_DIR + "\\" + file.getName()));
 		}

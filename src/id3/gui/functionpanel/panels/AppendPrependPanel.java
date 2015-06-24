@@ -4,23 +4,13 @@ import id3.functions.Functions;
 import id3.gui.customui.InfoTextArea;
 import id3.gui.functionpanel.FunctionPanel;
 import id3.utils.Utils;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.text.PlainDocument;
-
 import org.jaudiotagger.tag.FieldKey;
 
-import java.awt.Rectangle;
+import javax.swing.*;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class AppendPrependPanel extends FunctionPanel 
 {
@@ -79,26 +69,23 @@ public class AppendPrependPanel extends FunctionPanel
 		Utils.setDocFormatNumbersOnly(doc);
 		
 		comboEditField = new JComboBox(FIELDS);
-		comboEditField.addActionListener(new ActionListener()
+		comboEditField.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				int index = comboEditField.getSelectedIndex();
-				if(index > 0)
-				{
-					if(index < 8) // TODO
-					{
-						comboCopyField.setModel(new DefaultComboBoxModel(Utils.FIELDS_STRINGS));
-						txtUserText.setDocument(new PlainDocument());
-					}
-					else
-					{
-						comboCopyField.setModel(new DefaultComboBoxModel(Utils.FIELDS_INTS));
-						txtUserText.setDocument(doc);
-					}
-				}
-			}
-		});
+            int index = comboEditField.getSelectedIndex();
+            if(index > 0)
+            {
+                if(index < 8) // TODO
+                {
+                    comboCopyField.setModel(new DefaultComboBoxModel(Utils.FIELDS_STRINGS));
+                    txtUserText.setDocument(new PlainDocument());
+                }
+                else
+                {
+                    comboCopyField.setModel(new DefaultComboBoxModel(Utils.FIELDS_INTS));
+                    txtUserText.setDocument(doc);
+                }
+            }
+        });
 		comboEditField.setEnabled(false);
 		comboEditField.setBounds(50, 37, 130, 20);
 		this.add(comboEditField);
@@ -134,51 +121,38 @@ public class AppendPrependPanel extends FunctionPanel
 		InfoTextArea infoTextArea = new InfoTextArea(INFO_TEXT, new Rectangle(6, 147, 280, 106));
 		this.add(infoTextArea);
 		
-		chckAppPre.addActionListener(new ActionListener()
+		chckAppPre.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				if(!chckAppPre.isSelected())
-				{
-					comboCopyField.setEnabled(false);
-					txtUserText.setEnabled(false);
-				}
-				
-				lblField.setEnabled(chckAppPre.isSelected());
-				comboEditField.setEnabled(chckAppPre.isSelected());
-				rdbtnAppend.setEnabled(chckAppPre.isSelected());
-				rdbtnPrepend.setEnabled(chckAppPre.isSelected());
-				rdbtnUseField.setEnabled(chckAppPre.isSelected());
-				rdbtnUseText.setEnabled(chckAppPre.isSelected());
-			}
-		});
+            if(!chckAppPre.isSelected())
+            {
+                comboCopyField.setEnabled(false);
+                txtUserText.setEnabled(false);
+            }
+
+            lblField.setEnabled(chckAppPre.isSelected());
+            comboEditField.setEnabled(chckAppPre.isSelected());
+            rdbtnAppend.setEnabled(chckAppPre.isSelected());
+            rdbtnPrepend.setEnabled(chckAppPre.isSelected());
+            rdbtnUseField.setEnabled(chckAppPre.isSelected());
+            rdbtnUseText.setEnabled(chckAppPre.isSelected());
+        });
 		
-		rdbtnUseField.addActionListener(new ActionListener()
+		rdbtnUseField.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				comboCopyField.setEnabled(rdbtnUseField.isSelected());
-				txtUserText.setEnabled(!rdbtnUseField.isSelected());
-			}
-		});
+            comboCopyField.setEnabled(rdbtnUseField.isSelected());
+            txtUserText.setEnabled(!rdbtnUseField.isSelected());
+        });
 		
-		rdbtnUseText.addActionListener(new ActionListener()
+		rdbtnUseText.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				txtUserText.setEnabled(rdbtnUseText.isSelected());
-				comboCopyField.setEnabled(!rdbtnUseText.isSelected());
-			}
-		});
+            txtUserText.setEnabled(rdbtnUseText.isSelected());
+            comboCopyField.setEnabled(!rdbtnUseText.isSelected());
+        });
 	}
 	
 	private boolean isAppendPrepend()
 	{
-		if(chckAppPre.isSelected())
-		{
-			return true;
-		}
-		return false;
+		return chckAppPre.isSelected();
 	}
 	
 	private TextFunction getTextFunctionEnum()

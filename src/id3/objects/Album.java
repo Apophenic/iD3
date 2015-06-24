@@ -1,8 +1,9 @@
 package id3.objects;
 
-import java.util.HashMap;
-
+import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
+
+import java.util.HashMap;
 
 /** Album objects store album specific fields found on song's sharing
  * the same album AND artist. Albums cannot be accessed without an Artist object.
@@ -48,7 +49,7 @@ public class Album
 	 * @param comments  Literal comments or used as a custom field.
 	 * @param artwork  {@link Artwork} for this album.
 	 * @see Library#createArtistObjects()
-	 * @see Functions#findMissing()
+	 * @see id3.functions.Functions#calculateAlbumRating(Library, FieldKey, int)
 	 */
 	public Album(String name, Artist artist, String genre, int disccount, int trackcount,
 			int year, String composer, String grouping, String comments, Artwork artwork)

@@ -6,7 +6,6 @@ import id3.tables.ID3Table;
 import id3.tables.TableEntry;
 import id3.tables.abstractid3model.models.ArtistInNameModel;
 import id3.utils.Utils;
-
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
@@ -17,12 +16,13 @@ import java.util.logging.Level;
 
 public class ArtistInNamePanel extends TableFunctionPanel
 {
-	private static final String INFO_TEXT = "Looks for track titles with the artist as part of the name (i.e. Rush - 2012.mp3). "
+	private static final String INFO_TEXT = "Looks for track titles with the artist as part of the name" +
+			" (i.e. Rush - 2012.mp3). "
 			+ "This will be fixed, with the proper title and artist being placed in their respective tag fields.";
 	
 	/** Creates a new {@code ArtistInNamePanel}
 	 * @see TableFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public ArtistInNamePanel()
 	{

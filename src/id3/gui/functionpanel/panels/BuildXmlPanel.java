@@ -6,11 +6,8 @@ import id3.gui.customui.InfoTextArea;
 import id3.gui.functionpanel.FunctionPanel;
 import id3.objects.Library;
 
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.Rectangle;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -72,10 +69,7 @@ public class BuildXmlPanel extends FunctionPanel
 	public boolean checkForErrors()
 	{
 		File file = new File(getSelectedDirectory());
-		if(!file.exists() || !file.isDirectory())
-		{
-			return true;
-		}
-		return false;
+
+		return !file.exists() || !file.isDirectory();
 	}
 }

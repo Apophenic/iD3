@@ -13,7 +13,7 @@ public class SaveRatingsPanel extends SimpleFunctionPanel
 	
 	/** Creates a new {@code SaveRatingsPanel}
 	 * @see SimpleFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public SaveRatingsPanel()
 	{

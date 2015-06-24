@@ -3,12 +3,11 @@ package id3.gui.dialogs;
 import id3.tables.ID3Table;
 import id3.tables.abstractid3model.AbstractID3Model;
 
-import javax.swing.JDialog;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 
 /** Opens an {@link ID3Table} in its own,
  * larger dialog box.
- * @see TableFunctionPanel
+ * @see id3.gui.functionpanel.TableFunctionPanel
  */
 public class TableDialog extends JDialog
 {

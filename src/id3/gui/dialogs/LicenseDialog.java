@@ -1,9 +1,7 @@
 package id3.gui.dialogs;
 
-import javax.swing.JDialog;
-import javax.swing.JTextArea;
-import java.awt.Font;
-import javax.swing.UIManager;
+import javax.swing.*;
+import java.awt.*;
 
 public class LicenseDialog extends JDialog
 {

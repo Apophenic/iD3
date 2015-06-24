@@ -2,7 +2,7 @@ package id3.gui.functionpanel;
 
 import id3.gui.customui.InfoTextArea;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 /** A simple subclass of {@link FunctionPanel}
  * that outlines a panel containing only a

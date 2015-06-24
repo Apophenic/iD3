@@ -8,7 +8,7 @@ public class TableEntryComparator implements Comparator<TableEntry>
 	public enum CompareType
 	{
 		SongTitle, NewTitle, Artist, Album, FileName,
-		FilePath, NewFilePath, Rating, TrackNumber, Status;
+		FilePath, NewFilePath, Rating, TrackNumber, Status
 	}
 	
 	private CompareType mode;

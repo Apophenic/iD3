@@ -1,10 +1,10 @@
 package id3.gui.functionpanel.panels;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import id3.functions.Functions;
 import id3.gui.functionpanel.SimpleFunctionPanel;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class BpmDetectionPanel extends SimpleFunctionPanel
 {
@@ -13,7 +13,7 @@ public class BpmDetectionPanel extends SimpleFunctionPanel
 
 	/** Creates a new {@code BpmDetectionPanel}
 	 * @see SimpleFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public BpmDetectionPanel()
 	{

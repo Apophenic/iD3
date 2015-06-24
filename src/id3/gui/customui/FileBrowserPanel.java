@@ -3,14 +3,7 @@ package id3.gui.customui;
 import id3.main.GUI;
 import id3.main.Settings;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 /** A basic UI component, containing a button to open
  * a {@code JFileChooser} and a {@code JTextField} to save
@@ -35,23 +28,20 @@ public class FileBrowserPanel extends JPanel
 		this.add(txtFile);
 		
 		JButton btnBrowse = new JButton("Browse");
-		btnBrowse.addActionListener(new ActionListener()
+		btnBrowse.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JFileChooser jfc = new JFileChooser(Settings.PROGRAM_DIR);
-				UIManager.put("FileChooser.openDialogTitleText", "Select");
-				jfc.setFileSelectionMode(pathType);
-				jfc.setMultiSelectionEnabled(false);
-				
-				int val = jfc.showOpenDialog(GUI.frame);
-				if(val == JFileChooser.APPROVE_OPTION)
-				{
-					String filename = jfc.getSelectedFile().getAbsolutePath();
-					txtFile.setText(filename);
-				}
-			}
-		});
+            JFileChooser jfc = new JFileChooser(Settings.PROGRAM_DIR);
+            UIManager.put("FileChooser.openDialogTitleText", "Select");
+            jfc.setFileSelectionMode(pathType);
+            jfc.setMultiSelectionEnabled(false);
+
+            int val = jfc.showOpenDialog(GUI.frame);
+            if(val == JFileChooser.APPROVE_OPTION)
+            {
+                String filename = jfc.getSelectedFile().getAbsolutePath();
+                txtFile.setText(filename);
+            }
+        });
 		btnBrowse.setBounds(375, 0, 89, 23);
 		this.add(btnBrowse);
 	}

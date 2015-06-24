@@ -5,14 +5,8 @@ import id3.gui.customui.FileBrowserPanel;
 import id3.gui.customui.InfoTextArea;
 import id3.gui.functionpanel.FunctionPanel;
 
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.Rectangle;
-
-import javax.swing.JCheckBox;
-
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -75,10 +69,6 @@ public class ExportArtworkPanel extends FunctionPanel
 	@Override
 	public boolean checkForErrors()
 	{
-		if(getExportDirectory() == null)
-		{
-			return true;
-		}
-		return false;
+		return getExportDirectory() == null;
 	}
 }

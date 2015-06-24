@@ -1,28 +1,27 @@
 package id3.gui.functionpanel.panels;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import id3.functions.Functions;
 import id3.gui.functionpanel.TableFunctionPanel;
 import id3.tables.ID3Table;
 import id3.tables.TableEntry;
 import id3.tables.abstractid3model.models.GetLyricsModel;
 
-import javax.swing.JSlider;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GetLyricsPanel extends TableFunctionPanel // TODO
 {
 	private static final String INFO_TEXT = "Search for all songs with the selected minimum rating."
-			+ " After reviewing discovered songs, click \"Commit Changes\" to find lyrics for all songs in the table.\r\n"
-			+ "\r\nNot yet implemented";
+			+ " After reviewing discovered songs, click \"Commit Changes\" to find lyrics for all songs in the table." +
+			"\r\n\r\n"
+			+ "Not yet implemented";
 	
 	private JSlider slideRating;
 	
 	/** Creates a new {@code GetLyricsPanel}
 	 * @see TableFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public GetLyricsPanel()
 	{
@@ -59,7 +58,7 @@ public class GetLyricsPanel extends TableFunctionPanel // TODO
 		TableEntry tableEntry = Functions.getSongsByMinimumRating(entry, getMinimumRating());
 		if(tableEntry != null)
 		{
-			tableEntries.add(tableEntry);	System.out.println(tableEntry.FilePath);
+			tableEntries.add(tableEntry);
 			table.getModel().setTableEntries(tableEntries);
 		}
 	}

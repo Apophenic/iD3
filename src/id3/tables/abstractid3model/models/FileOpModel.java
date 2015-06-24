@@ -5,8 +5,8 @@ import id3.tables.abstractid3model.AbstractID3Model;
 
 import java.util.ArrayList;
 
-/** Used to back {@link RemoveDuplicatePanel}'s and
- * {@link FindUnlistedPanel}'s tables.
+/** Used to back {@link id3.gui.functionpanel.panels.RemoveDuplicatePanel}'s and
+ * {@link id3.gui.functionpanel.panels.UnlistedSongsPanel}'s tables.
  * @see AbstractID3Model
  */
 public class FileOpModel extends AbstractID3Model
@@ -20,7 +20,7 @@ public class FileOpModel extends AbstractID3Model
 		
 		private final int value;
 		
-		private FileOpColumns(final int value)
+		FileOpColumns(final int value)
 		{
 			this.value = value;
 		}
@@ -46,7 +46,7 @@ public class FileOpModel extends AbstractID3Model
 	/** Creates an empty model */
 	public FileOpModel()
 	{ 
-		this(new ArrayList<TableEntry>());
+		this(new ArrayList<>());
 	}
 	
 	public FileOpModel(ArrayList<TableEntry> entries)
@@ -68,7 +68,8 @@ public class FileOpModel extends AbstractID3Model
 						return tableEntry.FilePath;
 					}
 				//	return temp[0] + "\\" + temp[1] + "\\" + "..." + "\\" + temp[temp.length-1];
-					return temp[0] + "\\" + "..." + "\\" + temp[temp.length-3] + "\\" + temp[temp.length-2] + "\\" + temp[temp.length-1];
+					return temp[0] + "\\" + "..." + "\\" + temp[temp.length-3] + "\\" + temp[temp.length-2]
+							+ "\\" + temp[temp.length-1];
 				}
 				else
 				{

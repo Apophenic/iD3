@@ -2,27 +2,6 @@ package id3.utils;
 
 import id3.main.Program;
 import id3.main.Settings;
-
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.*;
-import java.nio.file.attribute.*;
-import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.DocumentFilter;
-
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -34,6 +13,21 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.images.Artwork;
+
+import javax.swing.text.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /** A set of utility methods that range from
  * string manipulation to ID3 Tag related
@@ -50,10 +44,12 @@ public final class Utils
 												"with", "are", "if", "be", "has"};
 	
 	/* Available fields in iTunes, split by like-data type */
-	public static final String[] FIELDS_STRINGS 	= {"Artist", "Album", "Album Artist", "Composer", "Grouping", "Genre", "Comments"};
-	public static final String[] FIELDS_INTS 		= {"Year", "Track Number", "Track Count", "Disc Number", "Disc Count", "BPM"};
+	public static final String[] FIELDS_STRINGS 	= {"Artist", "Album", "Album Artist", "Composer",
+														"Grouping", "Genre", "Comments"};
+	public static final String[] FIELDS_INTS 		= {"Year", "Track Number", "Track Count", "Disc Number",
+														"Disc Count", "BPM"};
 	
-	protected Utils() {}
+	private Utils() {}
 	
 	/** Capitalizes the first letter of every word,
 	 * by default.
@@ -65,7 +61,7 @@ public final class Utils
 	 */
 	public static String capitalizeTitle(String toProperTitle, boolean isUseProperEnglishCaps)
 	{
-		if(toProperTitle.isEmpty() || toProperTitle==null)
+		if(toProperTitle.isEmpty())
 		{
 			return "";
 		}
@@ -109,8 +105,8 @@ public final class Utils
 	 */
 	public static String removeIllegalWindowsFilePathChars(String text)
 	{
-		return text.replaceAll("[\\\\:\\/\\*\\?\"\\<\\>\\|\\;\\+\\`\\~\\{\\}\\[\\]\\="
-								+ "\\!\\@\\#\\$\\%\\^\\&]", "_");
+		return text.replaceAll("[\\\\:\\/\\*\\?\"<>\\|\\;\\+\\`\\~\\{\\}\\[\\]\\="
+								+ "\\!@\\#\\$\\%\\^\\&]", "_");
 	}
 	
 	/** Removes extension from file name
@@ -319,7 +315,7 @@ public final class Utils
 	 * (aka: the file path) and formats it to a proper URI.
 	 * @param entry  Library file's equivalent to a track in iTunes
 	 * @return  File path corresponding to the Track Entry
-	 * @see Library
+	 * @see id3.objects.Library
 	 */
 	public static String getFilePathFromTrackEntry(Entry<String, Map> entry)
 	{
@@ -375,11 +371,11 @@ public final class Utils
 	 * @returns  Map with info and matching keys. Values' types
 	 * cannot be generic objects - otherwise xml parsing
 	 * will fail.
-	 * @see Library
+	 * @see id3.objects.Library
 	 */
 	public static HashMap createNewTrackEntry(int id, File file)
 	{
-		HashMap<String, Object> entry = new HashMap<String, Object>();
+		HashMap<String, Object> entry = new HashMap<>();
 		try
 		{
 			AudioFile af = AudioFileIO.read(file);
@@ -471,7 +467,7 @@ public final class Utils
 	 * most compatible format.
 	 * @param entry  iTunes Track Entry
 	 * @returns new tag object
-	 * @see Library
+	 * @see id3.objects.Library
 	 */
 	public static Tag getTagFromTrackEntry(Entry<String, Map> entry)
 	{
@@ -574,7 +570,7 @@ public final class Utils
 	 * <li> 032-095 = 2 stars when READ with Windows Explorer, writes 64
 	 * <li> 001-031 = 1 stars when READ with Windows Explorer, writes 1
 	 * @param rating  ID3 tag rating field text.
-	 * @return
+	 * @returns
 	 */
 	public static int convertID3ToItunesRating(String rating)
 	{
@@ -597,7 +593,7 @@ public final class Utils
 	
 	/** Combines multiple arrays to generate
 	 * one array of all available iTunes fields.
-	 * @return  String[] of iTunes fields.
+	 * @returns  String[] of iTunes fields.
 	 */
 	public static String[] getFieldDisplay()
 	{

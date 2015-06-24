@@ -1,11 +1,6 @@
 package id3.main;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +14,8 @@ public final class Settings
 	
 	public static final File UNLISTED_DIR =  new File("(UNLISTED MEDIA)");
 	public static final String PROGRAM_DIR = System.getProperty("user.dir");
-	public static final String BPM_CMD = "java -jar \"" + PROGRAM_DIR + "\\bin\\lib\\trackanalyzer\\TrackAnalyzer.jar\" \"";
+	public static final String BPM_CMD =
+			"java -jar \"" + PROGRAM_DIR + "\\bin\\lib\\trackanalyzer\\TrackAnalyzer.jar\" \"";
 	
 	public static double ratedSongsMin;
 	public static int totalSongsMin;
@@ -35,8 +31,7 @@ public final class Settings
 	
 	public static boolean isDebugMode = false;	//Prevents writing ID3 tags
 	
-	protected Settings()
-	{ }
+	private Settings() {}
 	
 	public static void load()
 	{

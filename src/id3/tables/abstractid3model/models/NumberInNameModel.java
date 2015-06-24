@@ -6,7 +6,7 @@ import id3.tables.abstractid3model.AbstractID3Model;
 import java.util.ArrayList;
 
 
-/** Used to back {@link NumberInNamePanel}'s table.
+/** Used to back {@link id3.gui.functionpanel.panels.NumberInNamePanel}'s table.
  * @see AbstractID3Model
  */
 public class NumberInNameModel extends AbstractID3Model
@@ -20,7 +20,7 @@ public class NumberInNameModel extends AbstractID3Model
 		
 		private final int value;
 		
-		private NumberColumns(final int value)
+		NumberColumns(final int value)
 		{
 			this.value = value;
 		}
@@ -46,7 +46,7 @@ public class NumberInNameModel extends AbstractID3Model
 	/** Creates empty model */
 	public NumberInNameModel()
 	{ 
-		this(new ArrayList<TableEntry>());
+		this(new ArrayList<>());
 	}
 	
 	public NumberInNameModel(ArrayList<TableEntry> entries)

@@ -4,15 +4,12 @@ import id3.gui.dialogs.ProgressDialog;
 import id3.main.GUI;
 import id3.main.Program;
 import id3.utils.Utils;
+import org.jaudiotagger.tag.images.Artwork;
+import xmlwise.Plist;
+import xmlwise.XmlParseException;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import javax.swing.*;
+import java.io.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,13 +18,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.JOptionPane;
-
-import org.jaudiotagger.tag.images.Artwork;
-
-import xmlwise.Plist;
-import xmlwise.XmlParseException;
 
 /** Stores relevant info from an iTunes
  * Music Library.xml file.
@@ -56,13 +46,6 @@ public class Library
 {
 	private static final Logger 	LOG 					= Program.LOG;
 	
-	/** Header used in Library xml file */
-	public static final String 		HEADER 					= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-															+ "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"\n"
-															+ "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
-															+ "<plist version=\"1.0\">\n"
-															+ "<dict>";
-	
 	/** Temp file used during xml parsing.
 	 *  @see #prepLibraryFile() 
 	 *  */
@@ -90,7 +73,7 @@ public class Library
 	/** Artist objects, created from trackEntries if necessary.
 	 * @see #createArtistObjects()
 	 */
-	private ArrayList<Artist> artists = new ArrayList<Artist>();
+	private ArrayList<Artist> artists = new ArrayList<>();
 	
 	/** Create a new library from the supplied
 	 * file path. All track entries will be read
@@ -165,10 +148,10 @@ public class Library
 	 * <p>
 	 * This is a very expensive process. Very few functions
 	 * actually need Artist/Album objects.
-	 * {@link FunctionPanel#isRequiresAlbumArtistObjects} must
+	 * {@link id3.gui.functionpanel.FunctionPanel#isRequiresArtistAlbumObjects} must
 	 * be set to true for this method to be called.
-	 * @see CustomFieldsPanel
-	 * @see MissingFieldsPanel
+	 * @see id3.gui.functionpanel.panels.CustomFieldsPanel
+	 * @see id3.gui.functionpanel.panels.MissingFieldsPanel
 	 * @see {@literal The functions referenced in above panels}
 	 */
 	public void createArtistObjects()
@@ -185,9 +168,12 @@ public class Library
 		{
 			String filelocation = Utils.getFilePathFromTrackEntry(entry);
 			
-			// Artist/Album lookup by name. If either of these are unavailable, a unique string is assigned to them for identification purposes
-			String artistname = (String) entry.getValue().getOrDefault("Artist", "aa" + UUID.randomUUID().toString().substring(0, 5));
-			String albumname = (String) entry.getValue().getOrDefault("Album", "aa" + UUID.randomUUID().toString().substring(0, 5));
+			// Artist/Album lookup by name. If either of these are unavailable, a unique string is assigned to them for
+			// identification purposes
+			String artistname = (String) entry.getValue().getOrDefault
+					("Artist", "aa" + UUID.randomUUID().toString().substring(0, 5));
+			String albumname = (String) entry.getValue().getOrDefault
+					("Album", "aa" + UUID.randomUUID().toString().substring(0, 5));
 			
 			if(artistname.matches(UUID_REGEX))
 			{	//If a unique string was used, update track entry
@@ -197,8 +183,9 @@ public class Library
 			{
 				entry.getValue().put("Album", albumname);
 			}
-			
-			if(artistname.matches(UUID_REGEX) && !albumname.matches(UUID_REGEX))	//If album exists, find missing artist field
+
+			//If album exists, find missing artist field
+			if(artistname.matches(UUID_REGEX) && !albumname.matches(UUID_REGEX))
 			{
 				artistLoop :
 				for(Artist artist : artists)

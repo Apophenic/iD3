@@ -2,18 +2,17 @@ package id3.gui.functionpanel.panels;
 
 import id3.functions.Functions;
 import id3.gui.functionpanel.SimpleFunctionPanel;
+import org.jaudiotagger.tag.FieldKey;
 
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.swing.JCheckBox;
-
-import org.jaudiotagger.tag.FieldKey;
-
 public class DeleteFieldsPanel extends SimpleFunctionPanel 
 {
-	private static final String TEXT_INFO = "Deletes the selected field from the ID3 tag\r\nfor ALL songs in the music library.\r\n\r\n"
+	private static final String TEXT_INFO = "Deletes the selected field from the ID3 tag\r\nfor ALL songs in the" +
+			" music library.\r\n\r\n"
 			+ "NOTE: Delete Ratings will not remove the\r\nrating from iTunes, only from the ID3 tag";
 	
 	private JCheckBox chckDelArt;
@@ -22,7 +21,7 @@ public class DeleteFieldsPanel extends SimpleFunctionPanel
 
 	/** Creates a new {@code DeleteFieldsPanel}
 	 * @see SimpleFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public DeleteFieldsPanel()
 	{
@@ -64,11 +63,7 @@ public class DeleteFieldsPanel extends SimpleFunctionPanel
 	@Override
 	public boolean checkForErrors()
 	{
-		if(!chckDelArt.isSelected() && !chckDelLyrics.isSelected() &&
-				!chckDelRatings.isSelected())
-		{
-			return true;
-		}
-		return false;
+		return !chckDelArt.isSelected() && !chckDelLyrics.isSelected() &&
+				!chckDelRatings.isSelected();
 	}
 }

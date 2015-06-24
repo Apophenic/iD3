@@ -13,7 +13,7 @@ public class GetArtworkPanel extends SimpleFunctionPanel // TODO
 	
 	/** Creates a new {@code GetArtworkPanel}
 	 * @see SimpleFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public GetArtworkPanel()
 	{

@@ -7,23 +7,12 @@ import id3.gui.functionpanel.FunctionPanel;
 import id3.main.Settings;
 import id3.objects.Library;
 import id3.utils.Utils;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-
 import org.jaudiotagger.tag.FieldKey;
 
-import java.awt.Rectangle;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class CustomFieldsPanel extends FunctionPanel
 {
@@ -50,12 +39,15 @@ public class CustomFieldsPanel extends FunctionPanel
 	private void init()
 	{
 		chckArtistRating = new JCheckBox("Calculate Artist Rating");
-		chckArtistRating.setToolTipText("Calculates artist rating based on the percentage of songs an artist has that is four stars or greater. These values and others can be adjusted by clicking \"Edit Rating Criteria.\" See HELP for more info");
+		chckArtistRating.setToolTipText("Calculates artist rating based on the percentage of songs an artist has that" +
+				" is four stars or greater. These values and others can be adjusted by clicking \"Edit Rating Criteria" +
+				".\" See HELP for more info");
 		chckArtistRating.setBounds(6, 7, 189, 23);
 		this.add(chckArtistRating);
 		
 		chckAlbumRating = new JCheckBox("Calculate Album Rating");
-		chckAlbumRating.setToolTipText("Calculates based on average of song ratings. If the albums percentage of songs rated is less than the below slider, it will be skipped.");
+		chckAlbumRating.setToolTipText("Calculates based on average of song ratings. If the albums percentage of songs" +
+				" rated is less than the below slider, it will be skipped.");
 		chckAlbumRating.setBounds(6, 140, 189, 23);
 		this.add(chckAlbumRating);
 		
@@ -98,13 +90,7 @@ public class CustomFieldsPanel extends FunctionPanel
 		this.add(lblAlbumField);
 		
 		btnArtistRating = new JButton("Edit Rating Criteria");
-		btnArtistRating.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				new ArtistRatingDialog();
-			}
-		});
+		btnArtistRating.addActionListener(e -> new ArtistRatingDialog());
 		btnArtistRating.setEnabled(false);
 		btnArtistRating.setBounds(158, 61, 150, 23);
 		this.add(btnArtistRating);
@@ -112,25 +98,20 @@ public class CustomFieldsPanel extends FunctionPanel
 		InfoTextArea infoTextArea = new InfoTextArea(INFO_TEXT, new Rectangle(212, 141, 202, 114));
 		this.add(infoTextArea);
 		
-		chckArtistRating.addChangeListener(new ChangeListener()
+		chckArtistRating.addChangeListener(e ->
 		{
-			public void stateChanged(ChangeEvent e)
-			{
-				lblArtistField.setEnabled(chckArtistRating.isSelected());
-				comboArtistRatingField.setEnabled(chckArtistRating.isSelected());
-				btnArtistRating.setEnabled(chckArtistRating.isSelected());
-			}
-		});
+            lblArtistField.setEnabled(chckArtistRating.isSelected());
+            comboArtistRatingField.setEnabled(chckArtistRating.isSelected());
+            btnArtistRating.setEnabled(chckArtistRating.isSelected());
+        });
 		
-		chckAlbumRating.addChangeListener(new ChangeListener()
+		chckAlbumRating.addChangeListener(e ->
 		{
-			public void stateChanged(ChangeEvent e) {
-				lblRatedMin.setEnabled(chckAlbumRating.isSelected());
-				slideMinSongsRated.setEnabled(chckAlbumRating.isSelected());
-				lblAlbumField.setEnabled(chckAlbumRating.isSelected());
-				comboAlbumRatingField.setEnabled(chckAlbumRating.isSelected());
-			}
-		});
+            lblRatedMin.setEnabled(chckAlbumRating.isSelected());
+            slideMinSongsRated.setEnabled(chckAlbumRating.isSelected());
+            lblAlbumField.setEnabled(chckAlbumRating.isSelected());
+            comboAlbumRatingField.setEnabled(chckAlbumRating.isSelected());
+        });
 	}
 	
 	public boolean isCalculateArtistRating()
@@ -183,11 +164,7 @@ public class CustomFieldsPanel extends FunctionPanel
 	@Override
 	public boolean checkForErrors()
 	{
-		if(!isCalculateArtistRating() && !isCalculateAlbumRating())
-		{
-			return true;
-		}
-		return false;
+		return !isCalculateArtistRating() && !isCalculateAlbumRating();
 	}
 
 }

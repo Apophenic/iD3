@@ -5,7 +5,7 @@ import id3.tables.abstractid3model.AbstractID3Model;
 
 import java.util.ArrayList;
 
-/** Used to back {@link FindAndReplacePanel}'s table.
+/** Used to back {@link id3.gui.functionpanel.panels.FindAndReplacePanel}'s table.
  * @see AbstractID3Model
  */
 public class FindAndReplaceModel extends AbstractID3Model
@@ -19,7 +19,7 @@ public class FindAndReplaceModel extends AbstractID3Model
 		
 		private final int value;
 		
-		private FindColumns(final int value)
+		FindColumns(final int value)
 		{
 			this.value = value;
 		}
@@ -45,7 +45,7 @@ public class FindAndReplaceModel extends AbstractID3Model
 	/** Creates an empty model */
 	public FindAndReplaceModel()
 	{ 
-		this(new ArrayList<TableEntry>());
+		this(new ArrayList<>());
 	}
 
 	public FindAndReplaceModel(ArrayList<TableEntry> entries)

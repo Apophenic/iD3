@@ -12,40 +12,22 @@ import id3.objects.Library;
 import id3.tables.TableEntry;
 import id3.utils.Distancing;
 import id3.utils.Utils;
+import org.jaudiotagger.tag.*;
+import org.jaudiotagger.tag.images.Artwork;
+import org.jaudiotagger.tag.images.StandardArtwork;
+import xmlwise.Plist;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import javax.swing.*;
+import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
-
-import org.jaudiotagger.tag.FieldDataInvalidException;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.KeyNotFoundException;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.images.Artwork;
-import org.jaudiotagger.tag.images.StandardArtwork;
-
-import xmlwise.Plist;
-
 /** Static methods used to manipulate each track's
- * ID3 tags. Each {@link FunctionPanel} subclass will point to it's
+ * ID3 tags. Each {@link id3.gui.functionpanel.FunctionPanel} subclass will point to it's
  * corresponding function method found in this class.
  */
 public final class Functions
@@ -145,8 +127,8 @@ public final class Functions
 	 * also contain's the artist's name. Returns a new table entry if true.
 	 * @param entry  Library file's equivalent to a track in iTunes
 	 * @return  {@link TableEntry}, which is the object backing 
-	 * every {@link ID3Table}'s model.
-	 * @see AbstractID3Model
+	 * every {@link id3.tables.ID3Table}'s model.
+	 * @see id3.tables.abstractid3model.AbstractID3Model
 	 */
 	public static TableEntry getTitlesWithArtistNameIncluded(Entry<String, Map> entry)
 	{
@@ -391,7 +373,7 @@ public final class Functions
 	 * @param isUseCustomRatings  If true, uses a custom rating system to
 	 * calculate ratings. Default behavior is to simply average all ratings.
 	 * @see Library#createArtistObjects()
-	 * @see ArtistRatingDialog
+	 * @see id3.gui.dialogs.ArtistRatingDialog
 	 */
 	public static void calculateArtistRating(Library lib, FieldKey field, boolean isUseCustomRatings)
 	{
@@ -875,7 +857,7 @@ public final class Functions
 	
 	/** Creates a csv file containing missing tracks.
 	 * @param missingTracks  List of missing tracks.
-	 * @see findMissingSongs
+	 * @see #findMissingSongs(Library, boolean) findMissingSongs
 	 */
 	private static void writeMissingTracks(ArrayList<TableEntry> missingTracks)
 	{
@@ -915,9 +897,9 @@ public final class Functions
 	 * the name. Older versions of iTunes sometimes added copies of the
 	 * same song for whatever reason. (i.e 01 name.mp3, 01 name 1.mp3)
 	 * @param entry  Library file's equivalent to a track in iTunes.
-	 * @return  {@link TableEntry} object, used to back {@link ID3Table}'s
+	 * @return  {@link TableEntry} object, used to back {@link id3.tables.ID3Table}'s
 	 * model.
-	 * @see AbstractID3Model
+	 * @see id3.tables.abstractid3model.AbstractID3Model
 	 */
 	public static TableEntry deleteDuplicateFiles(Entry<String, Map> entry)
 	{
@@ -957,9 +939,9 @@ public final class Functions
 	 * @param isIgnoreImages  image files will not be listed. This is
 	 * useful if you know some ID3 tags use linked images (thus deleting
 	 * the image file would remove the artwork from any linked ID3 tags)
-	 * @return  {@link TableEntry} object, used to back {@link ID3Table}'s
+	 * @return  {@link TableEntry} object, used to back {@link id3.tables.ID3Table}'s
 	 * model.
-	 * @see AbstractID3Model
+	 * @see id3.tables.abstractid3model.AbstractID3Model
 	 */
 	public static ArrayList<TableEntry> findUnlistedSongs(Library lib, boolean isIgnoreImages)
 	{
@@ -1187,9 +1169,9 @@ public final class Functions
 	/** Creates TableEntrys for all tracks that have a rating >= the provided rating.
 	 * @param entry  Library file's equivalent to a track in iTunes
 	 * @param minRating  Minimum rating required. 
-	 * @return  {@link TableEntry} object that backs {@link ID3Table}'s
+	 * @return  {@link TableEntry} object that backs {@link id3.tables.ID3Table}'s
 	 * table model.
-	 * @see AbstractID3Model
+	 * @see id3.tables.abstractid3model.AbstractID3Model
 	 */
 	public static TableEntry getSongsByMinimumRating(Entry<String, Map> entry, int minRating)
 	{
@@ -1357,9 +1339,9 @@ public final class Functions
 	/** Creates a TableEntry for each track that has the track number
 	 * within the song's title.
 	 * @param entry  Library file's equivalent to a track in iTunes
-	 * @return  {@link TableEntry} object that backs {@link ID3Table}'s
+	 * @return  {@link TableEntry} object that backs {@link id3.tables.ID3Table}'s
 	 * table model.
-	 * @see AbstractID3Model
+	 * @see id3.tables.abstractid3model.AbstractID3Model
 	 */
 	public static TableEntry removeTrackNumberFromTitles(Entry<String, Map> entry)
 	{	

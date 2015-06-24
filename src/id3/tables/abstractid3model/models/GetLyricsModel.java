@@ -5,7 +5,7 @@ import id3.tables.abstractid3model.AbstractID3Model;
 
 import java.util.ArrayList;
 
-/** Used to back {@link GetLyricsPanel}'s table.
+/** Used to back {@link id3.gui.functionpanel.panels.GetLyricsPanel}'s table.
  * @see AbstractID3Model
  */
 public class GetLyricsModel extends AbstractID3Model
@@ -19,7 +19,7 @@ public class GetLyricsModel extends AbstractID3Model
 		
 		private final int value;
 		
-		private LyricsColumns(final int value)
+		LyricsColumns(final int value)
 		{
 			this.value = value;
 		}
@@ -45,7 +45,7 @@ public class GetLyricsModel extends AbstractID3Model
 	/** Creates an empty model */
 	public GetLyricsModel()
 	{
-		this(new ArrayList<TableEntry>());
+		this(new ArrayList<>());
 	}
 	
 	public GetLyricsModel(ArrayList<TableEntry> entries)

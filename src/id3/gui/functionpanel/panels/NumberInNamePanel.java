@@ -6,7 +6,6 @@ import id3.tables.ID3Table;
 import id3.tables.TableEntry;
 import id3.tables.abstractid3model.models.NumberInNameModel;
 import id3.utils.Utils;
-
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -28,7 +27,7 @@ public class NumberInNamePanel extends TableFunctionPanel
 	
 	/** Creates a new {@code NumberInNamePanel}
 	 * @see TableFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public NumberInNamePanel()
 	{

@@ -7,22 +7,17 @@ import id3.tables.ID3Table;
 import id3.tables.TableEntry;
 import id3.tables.abstractid3model.models.FindAndReplaceModel;
 import id3.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-
 import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
 import org.jaudiotagger.tag.Tag;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 
 public class FindAndReplacePanel extends TableFunctionPanel
 {
@@ -34,7 +29,7 @@ public class FindAndReplacePanel extends TableFunctionPanel
 
 	/** Creates a new {@code FindAndReplacePanel}
 	 * @see TableFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public FindAndReplacePanel()
 	{
@@ -78,11 +73,7 @@ public class FindAndReplacePanel extends TableFunctionPanel
 	@Override
 	public boolean checkForErrors()
 	{
-		if(txtFind.getText().isEmpty())
-		{
-			return true;
-		}
-		return false;
+		return txtFind.getText().isEmpty();
 	}
 	
 	@Override

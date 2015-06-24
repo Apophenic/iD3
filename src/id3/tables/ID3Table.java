@@ -4,18 +4,13 @@ import id3.tables.TableEntryComparator.CompareType;
 import id3.tables.abstractid3model.AbstractID3Model;
 import id3.utils.Utils;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Collections;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 
 /** Custom {@code JTable} backed by
  * an {@link AbstractID3Model}.
@@ -46,45 +41,39 @@ public class ID3Table extends JTable
 	private void registerRightClick()
 	{
 		JMenuItem itemRemove = new JMenuItem("Remove Selected");
-		itemRemove.addActionListener(new ActionListener()
+		itemRemove.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				int[] selectedrows = ID3Table.this.getSelectedRows();
-				
-				for(int i = selectedrows.length - 1; i >= 0; i--)
-				{
-					ID3Table.this.getModel().getTableEntries().remove(selectedrows[i]);
-					ID3Table.this.getModel().fireTableRowsDeleted(i, i);
-				}
-				
-				ID3Table.this.clearSelection();
-			}
-		});
+            int[] selectedrows = ID3Table.this.getSelectedRows();
+
+            for(int i = selectedrows.length - 1; i >= 0; i--)
+            {
+                ID3Table.this.getModel().getTableEntries().remove(selectedrows[i]);
+                ID3Table.this.getModel().fireTableRowsDeleted(i, i);
+            }
+
+            ID3Table.this.clearSelection();
+        });
 		rightClickMenu.add(itemRemove);
 		
 		JMenuItem itemOpen = new JMenuItem("Open File Location");
-		itemOpen.addActionListener(new ActionListener()
+		itemOpen.addActionListener(e ->
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				int[] selectedrows = ID3Table.this.getSelectedRows();
-				
-				for(int current : selectedrows)
-				{
-					TableEntry tableEntry = ID3Table.this.getModel().getTableEntries().get(current);
-					String path = Utils.convertForwardToBackSlash(tableEntry.FilePath);
-					try 
-					{
-						Runtime.getRuntime().exec("explorer " + path);
-					}
-					catch (IOException ex)
-					{
-						ex.printStackTrace();
-					}
-				}
-			}
-		});
+            int[] selectedrows = ID3Table.this.getSelectedRows();
+
+            for(int current : selectedrows)
+            {
+                TableEntry tableEntry = ID3Table.this.getModel().getTableEntries().get(current);
+                String path = Utils.convertForwardToBackSlash(tableEntry.FilePath);
+                try
+                {
+                    Runtime.getRuntime().exec("explorer " + path);
+                }
+                catch (IOException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        });
 		rightClickMenu.add(itemOpen);
 		
 		this.addMouseListener(new MouseListener()
@@ -210,7 +199,7 @@ public class ID3Table extends JTable
 	 */
 	public void setModel(AbstractID3Model model)
 	{
-		super.setModel((TableModel) model);
+		super.setModel(model);
 		this.model = model;
 	}
 

@@ -6,22 +6,9 @@ import id3.gui.customui.InfoTextArea;
 import id3.gui.functionpanel.FunctionPanel;
 import id3.objects.Library;
 
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.Rectangle;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JScrollPane;
-import javax.swing.JCheckBox;
+import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.io.File;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -64,13 +51,7 @@ public class CopyFromIpodPanel extends FunctionPanel
 		fillDriveList();
 		
 		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				fillDriveList();
-			}
-		});
+		btnRefresh.addActionListener(e -> fillDriveList());
 		btnRefresh.setBounds(10, 132, 89, 23);
 		this.add(btnRefresh);
 		
@@ -137,11 +118,8 @@ public class CopyFromIpodPanel extends FunctionPanel
 	public boolean checkForErrors()
 	{
 		File file = new File(getSelectedDirectory());
-		if(!file.exists() || !file.isDirectory()
-				|| getIpodDriveLetter() == '\u0000')
-		{
-			return true;
-		}
-		return false;
+
+		return !file.exists() || !file.isDirectory()
+				|| getIpodDriveLetter() == '\u0000';
 	}
 }

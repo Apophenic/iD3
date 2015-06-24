@@ -1,15 +1,13 @@
 package id3.gui.functionpanel.panels;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import id3.functions.Functions;
 import id3.gui.functionpanel.SimpleFunctionPanel;
 import id3.objects.Library;
 
-import javax.swing.JCheckBox;
-
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MissingSongsPanel extends SimpleFunctionPanel
 {
@@ -21,7 +19,7 @@ public class MissingSongsPanel extends SimpleFunctionPanel
 	
 	/** Creates a new {@code MissingSongsPanel}
 	 * @see SimpleFunctionPanel
-	 * @see FunctionPanel
+	 * @see id3.gui.functionpanel.FunctionPanel
 	 */
 	public MissingSongsPanel()
 	{
