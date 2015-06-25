@@ -22,8 +22,25 @@ iD3 makes some assumptions about your library:
 
 Nothing should break completely if you don't follow these rules, but you may get mixed results if you don't. Regardless, IT IS HIGHLY HIGHLY HIGHLY RECOMMENDED TO MAKE A BACKUP OF YOUR LIBRAY FILES AND SONGS IN CASE THERE ARE ANY ISSUES.
 
-* AVAILABLE OPERATIONS *
-For info on the functions iD3 can perform, refer to the help dialog in the Graphical User Interface.
+* Available Operations *
+-Append / Prepend text or an ID3 field to another field
+-Remove Artist name from Track title
+-Calculate BPM
+-Rebuild iTunes Library.xml file from a directory of music
+-Copy all songs from an iPod (Tested on iPod Classic only)
+-Custom Field Input
+-Delete Fields that can't readily be deleted (artwork / lyrics)
+-Embed linked artwork into ID3 tags
+-Save a copy of all available artwork in a Library
+-Find and Replace text in tags
+-Multiple ID3 tag formatting options
+-Fill missing tag fields from other songs on the same album, if possible
+-Find and Attempt discovery of missing songs
+-Remove track number from song title (in the ID3 tag, NOT the file name)
+-Remove duplicate files
+-Save iTunes song ratings to ID3 tags
+-Swap tag fields
+-Find songs in the music directory that aren't in your Library
 
 * iD3 Application Logic *
 iD3 is largely built around the idea of the FunctionPanel class. Basically, the GUI contains input for the path to your library file, a button to perform the selected function, and a tabbedpane loaded with Subclasses of FunctionPanel that represent each function available in iD3. FunctionPanel creates logic on how to handle a function (whether it runs on a per track entry basis or the entire Library at once) and contains a method, runFunction, that points to the corresponding function in the Functions class.
