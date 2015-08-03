@@ -14,29 +14,28 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/(UNLISTED MEDIA)" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/META-INF" />
       <excludeFolder url="file://$MODULE_DIR$/test files" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
-      <library name="xmlwise-debug-1_2.jar">
+      <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/lib/xmlwise-debug-1_2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaudiotagger-2.2.2.jar!/" />
         </CLASSES>
-        <JAVADOC>
-          <root url="file:/$MODULE_DIR$/../../workspace/iTunesMgmt/src/lib/javadoc-xmlwise-debug-1_2/docs/api" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../../workspace/iTunesMgmt/src/lib/xmlwise-debug-1_2.jar" />
-        </SOURCES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="jaudiotagger-2.2.2.jar">
+      <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/lib/jaudiotagger-2.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xmlwise-debug-1_2.jar!/" />
         </CLASSES>
-        <JAVADOC />
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/lib/xmlwise-debug-1_2.jar!/docs/api" />
+        </JAVADOC>
         <SOURCES />
       </library>
     </orderEntry>

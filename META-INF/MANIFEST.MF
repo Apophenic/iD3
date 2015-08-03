@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: lib/jaudiotagger-2.2.2.jar lib/xmlwise-debug-1_2.jar
+Main-Class: id3.main.Program
+

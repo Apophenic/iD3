@@ -12,7 +12,6 @@ import java.awt.*;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
 public class FormattingPanel extends FunctionPanel
 {
 	public enum TextRemovalType
