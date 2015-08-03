@@ -43,11 +43,12 @@ Temporary Items
 .apdisk
 *.mp3
 *.xml
+*.iml
 
 TODO.txt
 .idea
 test files
-iD3.iml
 Settings.ini
 (UNLISTED MEDIA)
 META-INF
+bin

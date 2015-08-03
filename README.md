@@ -41,6 +41,3 @@ Nothing should break completely if you don't follow these rules, but you may get
 * Save iTunes song ratings to ID3 tags
 * Swap tag fields
 * Find songs in the music directory that aren't in your Library
-
-**iD3 Application Logic**
-iD3 is largely built around the idea of the FunctionPanel class. Basically, the GUI contains input for the path to your library file, a button to perform the selected function, and a tabbedpane loaded with Subclasses of FunctionPanel that represent each function available in iD3. FunctionPanel creates logic on how to handle a function (whether it runs on a per track entry basis or the entire Library at once) and contains a method, runFunction, that points to the corresponding function in the Functions class.
