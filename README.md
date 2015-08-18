@@ -1,6 +1,7 @@
 # iD3 for Windows
 -----------------
 ![Sample Img](https://github.com/Apophenic/iD3/blob/master/res/sample.png)
+
 _iD3_ provides a number of ID3 metadata editing tools that are meant to be used with the Windows version of iTunes.
 
 ### Supported Operations
@@ -27,6 +28,7 @@ _iD3_ provides a number of ID3 metadata editing tools that are meant to be used 
 ### How to Use It
 -----------------
 If you don't need the source, you'll find the precompiled version [here](https://github.com/Apophenic/iD3/blob/master/jar/iD3)
+
 Otherwise, create a new project in your IDE of chocie and include the jars in the lib folder as project dependencies.
 
 ### How It Works
