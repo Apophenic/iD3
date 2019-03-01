@@ -117,6 +117,12 @@ public class Library
 			Map<String, Object> plist = Plist.load(FILE_TRACKS);
 			
 			musicFolder = (String) plist.get("Music Folder");
+
+			// "Music folder" key can be missing in the XML.
+			if (musicFolder == null) {
+				musicFolder = this.getRelativeMusicFolder();
+			}
+                        
 			musicFolder = URI.create(musicFolder).getPath();
 			
 			trackEntries = (Map<String, Map>) plist.get("Tracks");
@@ -339,6 +345,16 @@ public class Library
 				LOG.log(Level.WARNING, "I/O Stream failed to close after constructing tracks file");
 			}
 		}
+	}
+        
+	/**
+	 * Get Music Folder path relative to the Library file
+	 * @return String
+	 */
+	private String getRelativeMusicFolder()
+	{
+		File libraryPath = this.fileLibrary.getParentFile();
+		return "file://localhost" + libraryPath.toURI().getPath() + "iTunes%20Music";
 	}
 	
 	public Set<Entry<String, Map>> getTrackMapEntries()
