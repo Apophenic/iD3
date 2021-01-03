@@ -123,7 +123,7 @@ public class Library
 				musicFolder = this.getRelativeMusicFolder();
 			}
                         
-			musicFolder = URI.create(musicFolder).getPath();
+			musicFolder = new File(musicFolder).toString();
 			
 			trackEntries = (Map<String, Map>) plist.get("Tracks");
 			
@@ -353,8 +353,16 @@ public class Library
 	 */
 	private String getRelativeMusicFolder()
 	{
+                String path;
 		File libraryPath = this.fileLibrary.getParentFile();
-		return "file://localhost" + libraryPath.toURI().getPath() + "iTunes%20Music";
+                String[] dirNames = {"iTunes Media", "iTunes Music"};
+                for (String dirName : dirNames) {
+                    path = libraryPath.toURI().getPath() + dirName;
+                    if (new File(path).isDirectory()) {
+                        return "file://localhost" + path;
+                    }
+                }
+		return null;
 	}
 	
 	public Set<Entry<String, Map>> getTrackMapEntries()
