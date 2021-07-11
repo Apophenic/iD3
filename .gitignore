@@ -52,3 +52,7 @@ Settings.ini
 META-INF
 bin
 iD3.iml
+dist
+build
+nbproject
+manifest.mf
