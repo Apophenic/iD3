@@ -76,10 +76,15 @@ public abstract class FunctionPanel extends JPanel
 			int progressCounter = 0;		
 			for(Entry<String, Map> entry : lib.getTrackMapEntries())
 			{
-				String fileLocation = Utils.getFilePathFromTrackEntry(entry);
-				LOG.log(Level.FINER, "PROCESSING: " + fileLocation);
-						
-				runFunction(entry);
+				String location = (String) entry.getValue().get("Location");
+
+				// TODO: find reason why some file locations equal null. Skip for now.
+				if(location != null) {
+						String fileLocation = Utils.getFilePathFromTrackEntry(entry);
+						LOG.log(Level.FINER, "PROCESSING: " + fileLocation);
+
+						runFunction(entry);
+				}
 				
 				progress.update(progressCounter++);
 			}
