@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /** Stores relevant info from an iTunes
  * Music Library.xml file.
@@ -126,6 +127,13 @@ public class Library
 			musicFolder = new File(musicFolder).toString();
 			
 			trackEntries = (Map<String, Map>) plist.get("Tracks");
+
+			// Only keep locally accessible files
+			trackEntries = trackEntries
+							.entrySet()
+							.stream()
+							.filter(entry -> entry.getValue().get("Track Type") != "File")
+							.collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
 			
 			LOG.log(Level.FINE, "Library xml parsed successfully");
 		}
